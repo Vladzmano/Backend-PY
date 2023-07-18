@@ -9,5 +9,5 @@ async def root(): # this function will act whenever it cantm and dont depent of 
 
 @app.get("/url")
 async def root():
-    return {"url : https:// miwebsite.com/FastAPI!"}
+    return {"url : https:// miwebsite.com/FastAPI!"} # hello
 
