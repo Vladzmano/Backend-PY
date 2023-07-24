@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from routers import products
 
 app = FastAPI() # instance
 
