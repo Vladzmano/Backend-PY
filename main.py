@@ -3,6 +3,11 @@ from routers import products
 
 app = FastAPI() # instance
 
+
+# Routers
+
+app.include_router(products.router)
+
 @app.get("/") # the protocol used on this interaction is the standard 'https' - 'http'. get = call or pull from server
 async def root(): # this function will act whenever it cantm and dont depent of a constant server sync.
     return "Hola FastAPI!"
