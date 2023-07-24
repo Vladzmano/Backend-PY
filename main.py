@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routers import products
 from routers import users
+from routers import basic_auth_users
 from fastapi.staticfiles import StaticFiles
 
 
@@ -37,3 +38,9 @@ async def url():
 
 # Documentacion en Swagger http://127.0.0.1:8000/docs
 # Documentacion en  Redocly http://127.0.0.1:8000/redocs
+
+
+
+## OAuth2 ##
+
+# Sistema de autenticacion de usuarios
