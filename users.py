@@ -14,8 +14,8 @@ async def users1():
 
 # Entidad user
 class User(BaseModel):
-    id = int
-    name = str
+    id: int
+    name: str
     surname: str
     url:str
     age: int
@@ -31,8 +31,28 @@ async def usersjson():
             { "name": "Amal", "surname": "Ashanty", "url": "https:// mywebsite2.com" }]
 
 
-@app.get("/userclass")
-async def userclass():
-    return (users_list)
+@app.get("/users")
+async def users():
+    return users_list
 
 
+
+# Path
+
+@app.get("/user/{id}")
+async def user(id: int):
+    return search_users(id)
+
+# Query
+
+@app.get("/userquery/") # can be changes to /user/
+async def user(id: int):
+    return search_users(id)
+
+def search_users(id: int):
+    users = filter(lambda user: user.id == id, users_list)
+
+    try:
+        return list(users)[0]
+    except:
+        return {"error": "No se ha encontrado el usuario"}
