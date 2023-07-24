@@ -2,15 +2,11 @@
 
 ## Get de Usuarios ##
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter
 from pydantic import BaseModel
 
-app = FastAPI()
-
-@app.get("/users1")
-async def users1():
-    return "Hola FastAPI users"
-
+router = APIRouter(prefix= "/users",
+                   tags = ["Users"])
 
 # Entidad user
 class User(BaseModel):
@@ -27,14 +23,14 @@ users_list = [User(id = 1, name= "Vlad", surname= "Mano", url= "https://mywebsit
 
 #basemodel permite crear una entidad, permite tratarlo de difernetes formas.
 
-@app.get("/usersjson")
+@router.get("/usersjson")
 async def usersjson():
     return [{ "name": "vlad", "surname": "Mano", "url": "https:// mywebsite.com"},
             { "name": "Jhon", "surname": "Smith", "url": "https:// mywebsite1.com" },
             { "name": "Amal", "surname": "Ashanty", "url": "https:// mywebsite2.com" }]
 
 
-@app.get("/users")
+@router.get("/users")
 async def users():
     return users_list
 
@@ -42,7 +38,7 @@ async def users():
 
 # Path : paramatros que son fijos, esto es obligatorio. ayuda a mantenr la coherencia de la API
 
-@app.get("/user/{id}")
+@router.get("/user/{id}")
 async def user(id: int):
     return search_users(id)
 
@@ -51,7 +47,7 @@ async def user(id: int):
 
 ## GET ##
 
-@app.get("/user/") # can be changes to /user/
+@router.get("/user/") # can be changes to /user/
 async def user(id: int):
     return search_users(id)
 
@@ -71,7 +67,7 @@ def search_users(id: int):
 
 ## POST ##
 
-@app.post("/user/",response_model= User, status_code=201) # operacion para incertar nuevos datos, ademas se puede fdefinir
+@router.post("/user/",response_model= User, status_code=201) # operacion para incertar nuevos datos, ademas se puede fdefinir
 async def user(user: User):
     if type(search_users(user.id)) == User:
         raise HTTPException(status_code=204, detail= "El usuario ya existe") #$$ con raise retorna el error correcto por la consola
@@ -83,7 +79,7 @@ async def user(user: User):
 
 ## PUT ##
 
-@app.put("/user/")
+@router.put("/user/")
 async def user(user : User):
 
     found = False
@@ -102,7 +98,7 @@ async def user(user : User):
 ## DELETE ##
 
 
-@app.delete("/user/{id}")
+@router.delete("/user/{id}")
 async def user(id: int):
 
     found = False
