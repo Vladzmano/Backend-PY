@@ -11,7 +11,9 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_DURATION = 1
 SECRET = "c48a7375ab8aa13601e7657a5597b0ae6bae17929efd7feeb03a43b6242ccba7937ffced09dc4cf30ec43efa342019c1b7a248a08ffe256ce46bb78c1f88e810"
 
-router = APIRouter()
+router = APIRouter(prefix= "/Login",
+                tags=["login"], #esto sirve para agrupar las API por categori apropia
+                responses= {404:{"mensaje" : "No encontrado"}})
 
 oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 
