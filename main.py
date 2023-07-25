@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from routers import products
 from routers import users
 from routers import basic_auth_users
+from routers import jwt_auth_users
 from fastapi.staticfiles import StaticFiles
 
 
@@ -11,6 +12,9 @@ app = FastAPI() # instance
 
 app.include_router(products.router)
 app.include_router(users.router)
+app.include_router(basic_auth_users.router)
+app.include_router(jwt_auth_users.router)
+
 app.mount("/static", StaticFiles(directory="static"), name= "static")
 ## http://127.0.0.1:8000/static/images/Dark%20laser%20and%20saltin.gif
 
