@@ -2,11 +2,10 @@
 
 ## Get de Usuarios ##
 
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import HTTPException, APIRouter
 from pydantic import BaseModel
 
-router = APIRouter(prefix= "/users",
-                   tags = ["Users"])
+router = APIRouter()
 
 # Entidad user
 class User(BaseModel):
@@ -38,7 +37,7 @@ async def users():
 
 # Path : paramatros que son fijos, esto es obligatorio. ayuda a mantenr la coherencia de la API
 
-@router.get("/user/{id}")
+@router.get("/{id}")
 async def user(id: int):
     return search_users(id)
 
@@ -47,7 +46,7 @@ async def user(id: int):
 
 ## GET ##
 
-@router.get("/user/") # can be changes to /user/
+@router.get("/") # can be changes to /user/
 async def user(id: int):
     return search_users(id)
 
